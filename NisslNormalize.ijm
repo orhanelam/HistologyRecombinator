@@ -28,8 +28,10 @@ for( i = normalizestart; i < normalizeend; i++)
 maxwidth = 11392;
 maxheight = 7744;
 
-start = 1;
-end = 3; //max of 243
+start = 1;//for next time
+end = 243; //max of 243
+//For continuous indexing of the scans given discontinuous scans.
+normalizeindex = start;
 for( i = start; i < end; i++)
 {
 	imagepath = "/Volumes/CivmUsers/ope/Desktop/Nissl Scans/100140665_" + i + ".jpg";
@@ -43,7 +45,9 @@ for( i = start; i < end; i++)
 		run("Macro...", "code=v=" + background + "-v");
 		setBackgroundColor(0,0,0);
 		imagepath = "/Volumes/CivmUsers/ope/Desktop/Nissl Scans/100140665_" + i + ".jpg";
-		run("Canvas Size...", "width=" + maxwidth + " height=" + maxheight + " position=Center");
+		yoffset = 0;
+		xoffset = 0;
+		run("Canvas Size...", "width=" + maxwidth + " height=" + maxheight + " position=Top-Left");
 		//run("Properties...", "channels=1 slices=1 frames=1 unit=µm pixel_width=10.0000 pixel_height=10.0000 voxel_depth=1.0000");
 
 		//Run the following to shrink the images.
@@ -54,8 +58,9 @@ for( i = start; i < end; i++)
 		run("Canvas Size...", "width=" + compressedWidth+ " height=" + compressedHeight+ " position=Center");
 		
 		//saveAs("Raw Data", "/Volumes/CivmUsers/ope/Desktop/Normalized Nissl Scans/v3/100140665_" + i + ".raw");
-		//saveAs("Raw Data", "/Volumes/CivmUsers/ope/Desktop/Normalized Nissl Scans/v3(compressed)/100140665_" + i + ".raw");
-		//close();
+		saveAs("Raw Data", "/Volumes/CivmUsers/ope/Desktop/Normalized Nissl Scans/v4(compressed)/100140665_" + normalizeindex + ".raw");
+		close();
+		normalizeindex = normalizeindex + 1;
 	}
 	
 }
